@@ -12,9 +12,9 @@ use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RequestFileArgumentResolver implements ValueResolverInterface
+readonly class RequestFileArgumentResolver implements ValueResolverInterface
 {
-    public function __construct(private readonly ValidatorInterface $validator)
+    public function __construct(private ValidatorInterface $validator)
     {
     }
 

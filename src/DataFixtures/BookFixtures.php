@@ -12,7 +12,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class BookFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $androidCategory = $this->getReference(BookCategoryFixtures::ANDROID_CATEGORY);
         $devicesCategory = $this->getReference(BookCategoryFixtures::DEVICES_CATEGORY);

@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class BookFormatFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $format1 = (new BookFormat())
             ->setTitle('eBook')
