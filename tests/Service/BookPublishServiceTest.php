@@ -9,7 +9,6 @@ use App\Model\Author\PublishBookRequest;
 use App\Repository\BookRepository;
 use App\Service\BookPublishService;
 use App\Tests\AbstractTestCase;
-use DateTimeImmutable;
 
 class BookPublishServiceTest extends AbstractTestCase
 {
@@ -25,7 +24,7 @@ class BookPublishServiceTest extends AbstractTestCase
     public function testPublish(): void
     {
         $book = new Book();
-        $datetime = new DateTimeImmutable('2020-10-10');
+        $datetime = new \DateTimeImmutable('2020-10-10');
         $request = new PublishBookRequest();
         $request->setDate($datetime);
 
@@ -45,7 +44,7 @@ class BookPublishServiceTest extends AbstractTestCase
     public function testUnpublish(): void
     {
         $book = new Book();
-        $book->setPublicationDate(new DateTimeImmutable('2020-10-10'));
+        $book->setPublicationDate(new \DateTimeImmutable('2020-10-10'));
 
         $this->bookRepository->expects($this->once())
             ->method('getBookById')
