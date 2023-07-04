@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  nginx:
+    build:
+      context: .
+      target: nginx
+    networks:
+      - default
+      - outside
+    volumes:
+      - .:/app
+    environment:
+      - VIRTUAL_HOST=e-lib.dev.local
+
+  php:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app
+    environment:
+      - DOCKER_ENV=dev
+      - "PHP_IDE_CONFIG=serverName=server"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  hoverfly:
+    container_name: hoverfly
+    image: spectolabs/hoverfly:v1.3.4
+    command:
+      - "-webserver"
+      - "-response-body-files-path=/hoverfly_app/responses"
+      - "-import=/hoverfly_app/simulations/recommend.simulation.json"
+    volumes:
+      - "$PWD/hoverfly:/hoverfly_app:ro"
+    ports:
+      - "8500:8500"
+
+networks:
+  outside:
+    external: true
+    name: nginx-proxy
