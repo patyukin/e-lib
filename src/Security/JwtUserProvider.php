@@ -6,7 +6,6 @@ namespace App\Security;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use JsonException;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\PayloadAwareUserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -19,7 +18,7 @@ class JwtUserProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * @throws JsonException
+     * @throws \JsonException
      */
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
@@ -27,7 +26,7 @@ class JwtUserProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * @throws JsonException
+     * @throws \JsonException
      */
     public function loadUserByIdentifierAndPayload(string $identifier, array $payload): UserInterface
     {
@@ -58,7 +57,7 @@ class JwtUserProvider implements PayloadAwareUserProviderInterface
     }
 
     /**
-     * @throws JsonException
+     * @throws \JsonException
      */
     private function getUser(string $key, mixed $value): UserInterface
     {
