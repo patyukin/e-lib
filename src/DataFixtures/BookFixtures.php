@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\DataFixtures;
 
 use App\Entity\Book;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -23,7 +20,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
 
         $book = (new Book())
             ->setTitle('RxJava for Android Developers')
-            ->setPublicationDate(new \DateTimeImmutable('2019-04-01'))
+            ->setPublicationDate(new DateTimeImmutable('2019-04-01'))
             ->setIsbn('123321')
             ->setDescription('test description')
             ->setAuthors(['Timo Tuominen'])

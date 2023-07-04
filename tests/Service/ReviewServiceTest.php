@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\Tests\Service;
 
 use App\Entity\Review;
@@ -16,6 +12,8 @@ use App\Service\Rating;
 use App\Service\RatingService;
 use App\Service\ReviewService;
 use App\Tests\AbstractTestCase;
+use ArrayIterator;
+use DateTimeImmutable;
 
 class ReviewServiceTest extends AbstractTestCase
 {
@@ -57,7 +55,7 @@ class ReviewServiceTest extends AbstractTestCase
         $this->reviewRepository->expects($this->once())
             ->method('getPageByBookId')
             ->with(self::BOOK_ID, $offset, self::PER_PAGE)
-            ->willReturn(new \ArrayIterator());
+            ->willReturn(new ArrayIterator());
 
         $service = new ReviewService($this->reviewRepository, $this->ratingService);
         $expected = (new ReviewPage())->setTotal(0)->setRating(0)->setPage($page)->setPages(0)
@@ -74,14 +72,14 @@ class ReviewServiceTest extends AbstractTestCase
             ->willReturn(new Rating(1, 4.0));
 
         $entity = (new Review())->setAuthor('tester')->setContent('test content')
-            ->setCreatedAt(new \DateTimeImmutable('2020-10-10'))->setRating(4);
+            ->setCreatedAt(new DateTimeImmutable('2020-10-10'))->setRating(4);
 
         $this->setEntityId($entity, 1);
 
         $this->reviewRepository->expects($this->once())
             ->method('getPageByBookId')
             ->with(self::BOOK_ID, 0, self::PER_PAGE)
-            ->willReturn(new \ArrayIterator([$entity]));
+            ->willReturn(new ArrayIterator([$entity]));
 
         $service = new ReviewService($this->reviewRepository, $this->ratingService);
         $expected = (new ReviewPage())->setTotal(1)->setRating(4)->setPage(1)->setPages(1)

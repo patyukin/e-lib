@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\Service;
 
 use App\Entity\User;
@@ -16,12 +12,13 @@ use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\Authentica
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class SignUpService
+readonly class SignUpService
 {
-    public function __construct(private readonly UserPasswordHasherInterface $hasher,
-                                private readonly UserRepository $userRepository,
-                                private readonly AuthenticationSuccessHandler $successHandler)
-    {
+    public function __construct(
+        private UserPasswordHasherInterface $hasher,
+        private UserRepository $userRepository,
+        private AuthenticationSuccessHandler $successHandler
+    ) {
     }
 
     public function signUp(SignUpRequest $signUpRequest): Response

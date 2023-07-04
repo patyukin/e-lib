@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\Repository;
 
 use App\Entity\Review;
+use Countable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Traversable;
 
 /**
  * @method Review|null find($id, $lockMode = null, $lockVersion = null)
@@ -39,7 +37,7 @@ class ReviewRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return \Traversable&\Countable
+     * @return Traversable&Countable
      */
     public function getPageByBookId(int $id, int $offset, int $limit)
     {

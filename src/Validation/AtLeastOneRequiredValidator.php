@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\Validation;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -23,13 +19,13 @@ class AtLeastOneRequiredValidator extends ConstraintValidator
         $this->propertyAccessor = $propertyAccessor ?? PropertyAccess::createPropertyAccessor();
     }
 
-    public function validate(mixed $object, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint)
     {
         if (!$constraint instanceof AtLeastOneRequired) {
             throw new UnexpectedTypeException($constraint, AtLeastOneRequired::class);
         }
 
-        $passed = array_filter($constraint->requiredFields, fn (string $required) => null !== $this->propertyAccessor->getValue($object, $required));
+        $passed = array_filter($constraint->requiredFields, fn (string $required) => null !== $this->propertyAccessor->getValue($value, $required));
 
         if (!empty($passed)) {
             return;

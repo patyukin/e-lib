@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\ArgumentResolver;
 
 use App\Attribute\RequestBody;
@@ -17,6 +13,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Throwable;
 
 class RequestBodyArgumentResolver implements ValueResolverInterface
 {
@@ -36,7 +33,7 @@ class RequestBodyArgumentResolver implements ValueResolverInterface
                 $argument->getType(),
                 JsonEncoder::FORMAT
             );
-        } catch (\Throwable $throwable) {
+        } catch (Throwable $throwable) {
             throw new RequestBodyConvertException($throwable);
         }
 

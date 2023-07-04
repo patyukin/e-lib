@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\Tests;
 
 use App\Entity\Book;
@@ -15,6 +11,7 @@ use App\Entity\BookFormat;
 use App\Entity\BookToBookFormat;
 use App\Entity\Review;
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class MockUtils
@@ -58,7 +55,7 @@ class MockUtils
             ->setImage('http://localhost.png')
             ->setIsbn('123321')
             ->setDescription('test')
-            ->setPublicationDate(new \DateTimeImmutable('2020-10-10'))
+            ->setPublicationDate(new DateTimeImmutable('2020-10-10'))
             ->setAuthors(['Tester'])
             ->setCategories(new ArrayCollection([]))
             ->setSlug('test-book');
@@ -80,7 +77,7 @@ class MockUtils
         return (new Review())
             ->setAuthor('tester')
             ->setContent('test content')
-            ->setCreatedAt(new \DateTimeImmutable())
+            ->setCreatedAt(new DateTimeImmutable())
             ->setRating(5)
             ->setBook($book);
     }

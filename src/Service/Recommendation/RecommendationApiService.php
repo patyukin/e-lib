@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * Made for YouTube channel https://www.youtube.com/@eazy-dev
- */
-
 namespace App\Service\Recommendation;
 
 use App\Service\Recommendation\Exception\AccessDeniedException;
@@ -16,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Throwable;
 
 class RecommendationApiService
 {
@@ -37,7 +34,7 @@ class RecommendationApiService
                 RecommendationResponse::class,
                 JsonEncoder::FORMAT
             );
-        } catch (\Throwable $ex) {
+        } catch (Throwable $ex) {
             if ($ex instanceof ClientException && Response::HTTP_FORBIDDEN === $ex->getCode()) {
                 throw new AccessDeniedException($ex);
             }
